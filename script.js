@@ -1,46 +1,49 @@
-$(document).ready(function() {
+`use strict`;
 
-  var magic8Ball = {};
-  magic8Ball.listOfAnswers = ["No", "Yes", "I don't think so...", "Of course!", "Indubitably", "In your dreams."];
+const askBtn = document.querySelector(`.button`);
+const answer = document.getElementById(`answer`);
+const imageBall = document.getElementById(`8ball`);
 
-  $("#answer").hide();
+answer.removeAttribute(`answer`);
 
-  magic8Ball.askQuestion = function(question) {
-    $("#8ball").effect("shake");
+const allAnswers = [
+  `It is certain.`,
+  `It is decidedly so.`,
+  `Without a doubt.`,
+  `Yes definitely.`,
+  `You may rely on it.`,
 
-    $("#8ball").attr("src", "https://s3.amazonaws.com/media.skillcrush.com/skillcrush/wp-content/uploads/2016/09/magic8ballAnswer.png");
+  `As I see it, yes.`,
+  `Most likely.`,
+  `Outlook good.`,
+  `Yes.`,
+  `Signs point to yes.`,
 
-    $("#answer").fadeIn(4000);
+  `Reply hazy, try again.`,
+  `Ask again later.`,
+  `Better not tell you now.`,
+  `Cannot predict now.`,
+  `Concentrate and ask again.`,
 
-    var randomNumber = Math.random();
+  `Don't count on it.`,
+  `My reply is no.`,
+  `My sources say no.`,
+  `Outlook not so good.`,
+  `Very doubtful.`,
+];
 
-    var randomNumberForListOfAnswers = randomNumber * this.listOfAnswers.length;
+let randomAnswer = allAnswers[Math.trunc(allAnswers.length * Math.random())];
+console.log(randomAnswer);
 
-    var randomIndex = Math.floor(randomNumberForListOfAnswers);
+askBtn.addEventListener(`click`, function () {
+  prompt(`What would you like to ask the Magic 8-Ball?`);
 
-    var answer = this.listOfAnswers[randomIndex];
+  // need to change image source from old to new source.
+  imageBall.src =
+    "https://s3.amazonaws.com/media.skillcrush.com/skillcrush/wp-content/uploads/2016/09/magic8ballAnswer.png";
+  // https://s3.amazonaws.com/media.skillcrush.com/skillcrush/wp-content/uploads/2016/09/magic8ballAnswer.png
+  answer.classList.add(`answer`);
+  answer.textContent = randomAnswer;
 
-    $("#answer").text(answer);
-
-    console.log(question);
-    console.log(answer);
-  };
-
-  var onClick = function() {
-
-    $("#answer").hide();
-
-    $("#8ball").attr("src", "https://s3.amazonaws.com/media.skillcrush.com/skillcrush/wp-content/uploads/2016/09/magic8ballQuestion.png");
-
-
-    setTimeout(function(){
-      var question = prompt("ASK A YES/NO QUESTION!");
-      magic8Ball.askQuestion(question);
-    }, 500);
-
-
-  };
-
-  $("#questionButton").click(onClick);
-
+  console.log(`Ask me anything`);
 });
